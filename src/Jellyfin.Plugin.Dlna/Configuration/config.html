@@ -1,11 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>DLNA</title>
-</head>
-<body>
-<div data-role="page" class="page type-interior pluginConfigurationPage esqConfigurationPage" data-controller="__plugin/dlnajs">
+<div data-role="page" 
+     class="page type-interior pluginConfigurationPage esqConfigurationPage withTabs" 
+	 data-require="emby-button,emby-select,emby-checkbox"
+	 data-controller="__plugin/config.js">
+
     <div data-role="content">
         <div class="content-primary">
             <form id="dlnaForm" class="esqConfigurationForm">
@@ -68,5 +65,3 @@
         </div>
     </div>
 </div>
-</body>
-</html>
