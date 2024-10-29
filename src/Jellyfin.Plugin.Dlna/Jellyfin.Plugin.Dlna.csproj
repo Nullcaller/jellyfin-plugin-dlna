@@ -23,6 +23,8 @@
       <EmbeddedResource Include="Configuration\config.js" />
       <EmbeddedResource Include="Configuration\profiles.html" />
       <EmbeddedResource Include="Configuration\profiles.js" />
+      <EmbeddedResource Include="Configuration\profile.html" />
+      <EmbeddedResource Include="Configuration\profile.js" />
       <EmbeddedResource Include="Images\*.jpg" />
       <EmbeddedResource Include="Images\*.png" />
       <EmbeddedResource Include="Profiles\Xml\*.xml" />

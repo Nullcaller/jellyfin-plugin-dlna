@@ -64,6 +64,16 @@ public class DlnaPlugin : BasePlugin<DlnaPluginConfiguration>, IHasWebPages
                 Name = "profiles.js",
                 EmbeddedResourcePath = GetType().Namespace + ".Configuration.profiles.js"
             },
+            new PluginPageInfo
+            {
+                Name = "profile",
+                EmbeddedResourcePath = GetType().Namespace + ".Configuration.profile.html",
+            },
+            new PluginPageInfo
+            {
+                Name = "profile.js",
+                EmbeddedResourcePath = GetType().Namespace + ".Configuration.profile.js"
+            },
         ];
     }
 }
