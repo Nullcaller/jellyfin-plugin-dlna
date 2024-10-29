@@ -20,6 +20,8 @@
       <EmbeddedResource Include="Configuration\Pages\config.js" />
       <EmbeddedResource Include="Configuration\Pages\profiles.html" />
       <EmbeddedResource Include="Configuration\Pages\profiles.js" />
+      <EmbeddedResource Include="Configuration\Pages\profile.html" />
+      <EmbeddedResource Include="Configuration\Pages\profile.js" />
       <EmbeddedResource Include="Profiles\Xml\*.xml" />
     </ItemGroup>
 </Project>
