@@ -16,8 +16,10 @@
     </ItemGroup>
 
     <ItemGroup>
-      <EmbeddedResource Include="Configuration\config.html" />
-      <EmbeddedResource Include="Configuration\config.js" />
+      <EmbeddedResource Include="Configuration\Pages\config.html" />
+      <EmbeddedResource Include="Configuration\Pages\config.js" />
+      <EmbeddedResource Include="Configuration\Pages\profiles.html" />
+      <EmbeddedResource Include="Configuration\Pages\profiles.js" />
       <EmbeddedResource Include="Profiles\Xml\*.xml" />
     </ItemGroup>
 </Project>

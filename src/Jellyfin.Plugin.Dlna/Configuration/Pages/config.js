@@ -1,10 +1,36 @@
+const getConfigurationPageUrl = (name) => {
+    return 'configurationpage?name=' + encodeURIComponent(name);
+}
+
+window.ApiClient.getUserActivity = function (url_to_get) {
+    console.log("getUserActivity Url = " + url_to_get);
+    return this.ajax({
+        type: "GET",
+        url: url_to_get,
+        dataType: "json"
+    });
+};
+
+function getTabs() {
+    var tabs = [
+        {
+            href: getConfigurationPageUrl('config'),
+            name: 'Settings'
+        },
+        {
+            href: getConfigurationPageUrl('profiles'),
+            name: 'Profiles'
+        }];
+    return tabs;
+}
+
 const DlnaConfigurationPage = {
     pluginUniqueId: '33EBA9CD-7DA1-4720-967F-DD7DAE7B74A1',
     defaultDiscoveryInterval: 60,
     defaultAliveInterval: 100,
     loadConfiguration: function (page) {
         ApiClient.getPluginConfiguration(this.pluginUniqueId)
-            .then(function(config) {
+            .then(function (config) {
                 page.querySelector('#dlnaPlayTo').checked = config.EnablePlayTo;
                 page.querySelector('#dlnaDiscoveryInterval').value = parseInt(config.ClientDiscoveryIntervalSeconds) || this.defaultDiscoveryInterval;
                 page.querySelector('#dlnaBlastAlive').checked = config.BlastAliveMessages;
@@ -12,36 +38,36 @@ const DlnaConfigurationPage = {
                 page.querySelector('#dlnaMatchedHost').checked = config.SendOnlyMatchedHost;
 
                 ApiClient.getUsers()
-                    .then(function(users){
+                    .then(function (users) {
                         DlnaConfigurationPage.populateUsers(page, users, config.DefaultUserId);
                     })
-                    .finally(function (){
+                    .finally(function () {
                         Dashboard.hideLoadingMsg();
                     });
             });
     },
-    populateUsers: function(page, users, selectedId){
+    populateUsers: function (page, users, selectedId) {
         let html = '';
         html += '<option value="">None</option>';
-        for(let i = 0, length = users.length; i < length; i++) {
+        for (let i = 0, length = users.length; i < length; i++) {
             const user = users[i];
             html += '<option value="' + user.Id + '">' + user.Name + '</option>';
         }
-        
+
         page.querySelector('#dlnaSelectUser').innerHTML = html;
         page.querySelector('#dlnaSelectUser').value = selectedId;
     },
-    save: function(page) {
+    save: function (page) {
         Dashboard.showLoadingMsg();
         return new Promise((_) => {
             ApiClient.getPluginConfiguration(this.pluginUniqueId)
-                .then(function(config) {
+                .then(function (config) {
                     config.EnablePlayTo = page.querySelector('#dlnaPlayTo').checked;
                     config.ClientDiscoveryIntervalSeconds = parseInt(page.querySelector('#dlnaDiscoveryInterval').value) || this.defaultDiscoveryInterval;
                     config.BlastAliveMessages = page.querySelector('#dlnaBlastAlive').checked;
                     config.AliveMessageIntervalSeconds = parseInt(page.querySelector('#dlnaAliveInterval').value) || this.defaultAliveInterval;
                     config.SendOnlyMatchedHost = page.querySelector('#dlnaMatchedHost').checked;
-                    
+
                     let selectedUser = page.querySelector('#dlnaSelectUser').value;
                     config.DefaultUserId = selectedUser.length > 0 ? selectedUser : null;
 
@@ -51,15 +77,36 @@ const DlnaConfigurationPage = {
     }
 }
 
-export default function(view) {
-    view.querySelector('#dlnaForm').addEventListener('submit', function(e) {
+export default function (view, params) {
+
+    // init code here
+    view.addEventListener('viewshow', function (e) {
+
+        LibraryMenu.setTabs('config', 0, getTabs);
+
+        process_click();
+        function process_click() {
+            Dashboard.showLoadingMsg();
+            DlnaConfigurationPage.loadConfiguration(view);
+        };
+    });
+
+    view.addEventListener('viewhide', function (e) {
+
+    });
+
+    view.addEventListener('viewdestroy', function (e) {
+
+    });
+
+    view.querySelector('#dlnaForm').addEventListener('submit', function (e) {
         DlnaConfigurationPage.save(view);
         e.preventDefault();
         return false;
     });
-    
-    window.addEventListener('pageshow', function(_) {
+
+    window.addEventListener('pageshow', function (_) {
         Dashboard.showLoadingMsg();
         DlnaConfigurationPage.loadConfiguration(view);
     });
-}
+};

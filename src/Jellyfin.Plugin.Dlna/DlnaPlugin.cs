@@ -37,14 +37,24 @@ public class DlnaPlugin : BasePlugin<DlnaPluginConfiguration>, IHasWebPages
         {
             new PluginPageInfo
             {
-                Name = "dlna",
-                EmbeddedResourcePath = GetType().Namespace + ".Configuration.config.html",
+                Name = "config",
+                EmbeddedResourcePath = GetType().Namespace + ".Configuration.Pages.config.html",
                 EnableInMainMenu = true
             },
             new PluginPageInfo
             {
-                Name = "dlnajs",
-                EmbeddedResourcePath = GetType().Namespace + ".Configuration.config.js"
+                Name = "config.js",
+                EmbeddedResourcePath = GetType().Namespace + ".Configuration.Pages.config.js"
+            },
+            new PluginPageInfo
+            {
+                Name = "profiles",
+                EmbeddedResourcePath = GetType().Namespace + ".Configuration.Pages.profiles.html",
+            },
+            new PluginPageInfo
+            {
+                Name = "profiles.js",
+                EmbeddedResourcePath = GetType().Namespace + ".Configuration.Pages.profiles.js"
             },
         };
     }
